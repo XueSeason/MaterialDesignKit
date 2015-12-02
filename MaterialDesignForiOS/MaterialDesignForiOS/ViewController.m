@@ -8,20 +8,36 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+#import "MDTransition.h"
+#import "MDButton.h"
 
+@interface ViewController () <UINavigationControllerDelegate>
+@property (weak, nonatomic) IBOutlet MDButton *pushButton;
+@property (strong, nonatomic) MDTransition *transition;
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+//    self.navigationController.navigationBar.hidden = YES;
+    
+    self.transition = [[MDTransition alloc] initWithEnterView:self.pushButton];
+    self.pushButton.rippleStyle = MDRippleStyleCircle;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.navigationController.delegate = self;
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
+    if (operation == UINavigationControllerOperationPush) {
+        return self.transition;
+    } else {
+        return nil;
+    }
 }
 
 @end

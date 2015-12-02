@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, MDRippleStyle) {
+    MDRippleStyleDefault = 0,
+    MDRippleStyleCircle
+};
+
+IB_DESIGNABLE
 @interface MDButton : UIButton
-@property (assign, nonatomic) IBInspectable BOOL showShadow;
+@property (assign, nonatomic) IBInspectable BOOL floating;
+@property (assign, nonatomic) MDRippleStyle rippleStyle;
 @end

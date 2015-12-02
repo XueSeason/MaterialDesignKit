@@ -37,7 +37,7 @@
     self.adjustsImageWhenHighlighted = NO;
     [self.layer addSublayer:self.maskLayer];
     [self.maskLayer addSublayer:self.rippleLayer];
-    self.tintColor = [UIColor redColor];
+    self.rippleStyle = MDRippleStyleDefault;
 }
 
 - (void)layoutSubviews {
@@ -52,27 +52,40 @@
     self.maskLayer.hidden = NO;
     self.maskLayer.path = [UIBezierPath bezierPathWithRect:self.bounds].CGPath;
     
-    CGPoint center = [touch locationInView:self];
-
     CGFloat width = CGRectGetWidth(self.bounds);
     CGFloat height = CGRectGetHeight(self.bounds);
-
-    CGFloat maxX = fabs(width - center.x) > center.x ? fabs(width - center.x) : center.x;
-    CGFloat maxY = fabs(height - center.y) > center.y ? fabs(height - center.y) : center.y;
-    CGFloat radiusMin = MIN(width - maxX, height - maxY);
-    CGFloat radiusMax = sqrt(maxX * maxX + maxY * maxY);
     
-    UIBezierPath *beginPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(center.x - radiusMin, center.y - radiusMin, 2 * radiusMin, 2 * radiusMin)];
-    UIBezierPath *endPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(center.x - radiusMax, center.y - radiusMax, 2 * radiusMax, 2 * radiusMax)];
+    UIBezierPath *beginPath;
+    UIBezierPath *endPath;
+    
+    if (self.rippleStyle == MDRippleStyleDefault) {
+        CGPoint center = [touch locationInView:self];
+        CGFloat maxX = fabs(width - center.x) > center.x ? fabs(width - center.x) : center.x;
+        CGFloat maxY = fabs(height - center.y) > center.y ? fabs(height - center.y) : center.y;
+        CGFloat radiusMin = MIN(width - maxX, height - maxY);
+        CGFloat radiusMax = sqrt(maxX * maxX + maxY * maxY);
+        
+        beginPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(center.x - radiusMin, center.y - radiusMin, 2 * radiusMin, 2 * radiusMin)];
+        endPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(center.x - radiusMax, center.y - radiusMax, 2 * radiusMax, 2 * radiusMax)];
+    } else {
+        CGPoint center = CGPointMake(width / 2.0, height / 2.0);
+        CGFloat radius = MIN(width, height) / 2.0;
+        beginPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(center.x, center.y, 0, 0)];
+        endPath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(center.x - radius, center.y - radius, 2 * radius, 2 * radius)];
+    }
     
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
     animation.duration = 0.2;
     animation.fromValue = (__bridge id)beginPath.CGPath;
     animation.toValue = (__bridge id)endPath.CGPath;
-    
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
     [self.rippleLayer addAnimation:animation forKey:@"ripple"];
-    
     self.rippleLayer.path = endPath.CGPath;
+    
+    if (self.floating) {
+        self.layer.shadowRadius = 8.0;
+        self.layer.shadowOpacity = 0.8;
+    }
     
     return [super beginTrackingWithTouch:touch withEvent:event];
 }
@@ -80,6 +93,11 @@
 - (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
     [super endTrackingWithTouch:touch withEvent:event];
     self.maskLayer.hidden = YES;
+    
+    if (self.floating) {
+        self.layer.shadowRadius = 5.0;
+        self.layer.shadowOpacity = 0.5;
+    }
 }
 
 #pragma mark - getters and setters
@@ -100,18 +118,17 @@
     return _maskLayer;
 }
 
-- (void)setShowShadow:(BOOL)showShadow {
-    _showShadow = showShadow;
-    if (showShadow) {
+- (void)setFloating:(BOOL)floating {
+    _floating = floating;
+    if (floating) {
         self.layer.shadowOffset = CGSizeMake(0, 5);
         self.layer.shadowRadius = 5.0;
         self.layer.shadowOpacity = 0.5;
         self.layer.shadowColor = [UIColor blackColor].CGColor;
+        self.layer.masksToBounds = NO;
     } else {
         self.layer.shadowOffset = CGSizeZero;
-        self.layer.shadowRadius = 0.0;
-        self.layer.shadowOpacity = 1.0;
-        self.layer.shadowColor = [UIColor clearColor].CGColor;
+        self.layer.masksToBounds = YES;
     }
 }
 

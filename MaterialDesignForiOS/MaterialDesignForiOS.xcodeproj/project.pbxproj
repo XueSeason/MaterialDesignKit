@@ -16,6 +16,7 @@
 		B14D34D31C0E934300EBF967 /* MaterialDesignForiOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B14D34D21C0E934300EBF967 /* MaterialDesignForiOSTests.m */; };
 		B14D34DE1C0E934300EBF967 /* MaterialDesignForiOSUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B14D34DD1C0E934300EBF967 /* MaterialDesignForiOSUITests.m */; };
 		B14D34EE1C0E937A00EBF967 /* MDButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B14D34ED1C0E937A00EBF967 /* MDButton.m */; };
+		B14D34F21C0ED26400EBF967 /* MDTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = B14D34F11C0ED26400EBF967 /* MDTransition.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,8 @@
 		B14D34DF1C0E934300EBF967 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B14D34EC1C0E937A00EBF967 /* MDButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDButton.h; sourceTree = "<group>"; };
 		B14D34ED1C0E937A00EBF967 /* MDButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDButton.m; sourceTree = "<group>"; };
+		B14D34F01C0ED26400EBF967 /* MDTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDTransition.h; sourceTree = "<group>"; };
+		B14D34F11C0ED26400EBF967 /* MDTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDTransition.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +107,7 @@
 		B14D34B71C0E934300EBF967 /* MaterialDesignForiOS */ = {
 			isa = PBXGroup;
 			children = (
+				B14D34EF1C0ED23800EBF967 /* MDTransition */,
 				B14D34EB1C0E936600EBF967 /* MDButton */,
 				B14D34BB1C0E934300EBF967 /* AppDelegate.h */,
 				B14D34BC1C0E934300EBF967 /* AppDelegate.m */,
@@ -151,6 +155,15 @@
 				B14D34ED1C0E937A00EBF967 /* MDButton.m */,
 			);
 			path = MDButton;
+			sourceTree = "<group>";
+		};
+		B14D34EF1C0ED23800EBF967 /* MDTransition */ = {
+			isa = PBXGroup;
+			children = (
+				B14D34F01C0ED26400EBF967 /* MDTransition.h */,
+				B14D34F11C0ED26400EBF967 /* MDTransition.m */,
+			);
+			path = MDTransition;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -285,6 +298,7 @@
 			files = (
 				B14D34C01C0E934300EBF967 /* ViewController.m in Sources */,
 				B14D34BD1C0E934300EBF967 /* AppDelegate.m in Sources */,
+				B14D34F21C0ED26400EBF967 /* MDTransition.m in Sources */,
 				B14D34EE1C0E937A00EBF967 /* MDButton.m in Sources */,
 				B14D34BA1C0E934300EBF967 /* main.m in Sources */,
 			);
