@@ -10,6 +10,7 @@
 		B12F5E6E1C0EE13B00CE7619 /* OneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B12F5E6D1C0EE13B00CE7619 /* OneViewController.m */; };
 		B12F5E711C0EE14E00CE7619 /* TwoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B12F5E701C0EE14E00CE7619 /* TwoViewController.m */; };
 		B12F5E741C0EEA4000CE7619 /* MDCellBackTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = B12F5E731C0EEA4000CE7619 /* MDCellBackTransition.m */; };
+		B13E5E981C0F356900FCB95D /* MDSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = B13E5E971C0F356900FCB95D /* MDSwitch.m */; };
 		B14D34BA1C0E934300EBF967 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B14D34B91C0E934300EBF967 /* main.m */; };
 		B14D34BD1C0E934300EBF967 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B14D34BC1C0E934300EBF967 /* AppDelegate.m */; };
 		B14D34C01C0E934300EBF967 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B14D34BF1C0E934300EBF967 /* ViewController.m */; };
@@ -47,6 +48,8 @@
 		B12F5E701C0EE14E00CE7619 /* TwoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwoViewController.m; sourceTree = "<group>"; };
 		B12F5E721C0EEA4000CE7619 /* MDCellBackTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDCellBackTransition.h; sourceTree = "<group>"; };
 		B12F5E731C0EEA4000CE7619 /* MDCellBackTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDCellBackTransition.m; sourceTree = "<group>"; };
+		B13E5E961C0F356900FCB95D /* MDSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDSwitch.h; sourceTree = "<group>"; };
+		B13E5E971C0F356900FCB95D /* MDSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDSwitch.m; sourceTree = "<group>"; };
 		B14D34B51C0E934300EBF967 /* MaterialDesignForiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MaterialDesignForiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B14D34B91C0E934300EBF967 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B14D34BB1C0E934300EBF967 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -96,6 +99,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B13E5E951C0F352700FCB95D /* MDSwitch */ = {
+			isa = PBXGroup;
+			children = (
+				B13E5E961C0F356900FCB95D /* MDSwitch.h */,
+				B13E5E971C0F356900FCB95D /* MDSwitch.m */,
+			);
+			path = MDSwitch;
+			sourceTree = "<group>";
+		};
 		B14D34AC1C0E934300EBF967 = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +131,7 @@
 		B14D34B71C0E934300EBF967 /* MaterialDesignForiOS */ = {
 			isa = PBXGroup;
 			children = (
+				B13E5E951C0F352700FCB95D /* MDSwitch */,
 				B14D34EF1C0ED23800EBF967 /* MDTransition */,
 				B14D34EB1C0E936600EBF967 /* MDButton */,
 				B14D34BB1C0E934300EBF967 /* AppDelegate.h */,
@@ -322,6 +335,7 @@
 				B12F5E741C0EEA4000CE7619 /* MDCellBackTransition.m in Sources */,
 				B14D34F21C0ED26400EBF967 /* MDTransition.m in Sources */,
 				B14D34EE1C0E937A00EBF967 /* MDButton.m in Sources */,
+				B13E5E981C0F356900FCB95D /* MDSwitch.m in Sources */,
 				B12F5E6E1C0EE13B00CE7619 /* OneViewController.m in Sources */,
 				B14D34BA1C0E934300EBF967 /* main.m in Sources */,
 				B12F5E711C0EE14E00CE7619 /* TwoViewController.m in Sources */,
