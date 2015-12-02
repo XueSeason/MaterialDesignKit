@@ -37,16 +37,19 @@
     self.adjustsImageWhenHighlighted = NO;
     [self.layer addSublayer:self.maskLayer];
     [self.maskLayer addSublayer:self.rippleLayer];
+    self.tintColor = [UIColor redColor];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.rippleLayer.frame = self.bounds;
+    self.maskLayer.frame = self.bounds;
+    self.maskLayer.masksToBounds = YES;
 }
 
 #pragma mark - events response
 - (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
     self.maskLayer.hidden = NO;
-    
-    self.rippleLayer.frame = self.bounds;
-    self.maskLayer.frame = self.bounds;
-    self.maskLayer.masksToBounds = YES;
-    
     self.maskLayer.path = [UIBezierPath bezierPathWithRect:self.bounds].CGPath;
     
     CGPoint center = [touch locationInView:self];
