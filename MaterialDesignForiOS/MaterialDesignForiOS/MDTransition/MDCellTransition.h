@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  MDCellTransition.h
 //  MaterialDesignForiOS
 //
 //  Created by 薛纪杰 on 15/12/2.
@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-@property (strong, nonatomic) NSIndexPath *indexPath;
+@interface MDCellTransition : NSObject <UIViewControllerAnimatedTransitioning>
+@property (weak, nonatomic) UIView *enterView;
 @end
-

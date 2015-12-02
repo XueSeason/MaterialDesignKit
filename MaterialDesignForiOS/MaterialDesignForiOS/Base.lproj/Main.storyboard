@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -18,6 +19,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VIv-DH-3hR">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="Gz0-Wg-bF0"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="dhy-Yt-iai"/>
+                                </connections>
+                            </tableView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qvq-SK-jTK" customClass="MDButton">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <animations/>
@@ -51,85 +61,66 @@
                                     <segue destination="qdl-dl-QSo" kind="show" id="gVH-c8-4YQ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7IT-lU-ZX0" customClass="MDButton">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <animations/>
-                                <color key="backgroundColor" red="0.28235294119999998" green="0.53725490200000003" blue="0.78823529410000004" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="DBR-F3-lOI"/>
-                                    <constraint firstAttribute="width" constant="120" id="Jee-1B-wa3"/>
-                                </constraints>
-                                <state key="normal" title="Button">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="floating" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="DBR-F3-lOI"/>
-                                        <exclude reference="Jee-1B-wa3"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="DBR-F3-lOI"/>
-                                        <include reference="Jee-1B-wa3"/>
-                                    </mask>
-                                </variation>
-                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="VIv-DH-3hR" secondAttribute="bottom" id="9z7-TS-Iof"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="qvq-SK-jTK" secondAttribute="bottom" constant="20" id="Iq6-rl-ChZ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="qvq-SK-jTK" secondAttribute="trailing" id="Lso-QX-bdn"/>
-                            <constraint firstItem="7IT-lU-ZX0" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="PUS-nO-hZ8"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="7IT-lU-ZX0" secondAttribute="leading" id="y7Y-5F-V70"/>
+                            <constraint firstItem="VIv-DH-3hR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="jEq-xN-m75"/>
+                            <constraint firstItem="VIv-DH-3hR" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-64" id="kyi-Gm-lja"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="VIv-DH-3hR" secondAttribute="trailing" constant="-20" id="ngc-oH-90g"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
+                                <exclude reference="VIv-DH-3hR"/>
                                 <exclude reference="qvq-SK-jTK"/>
-                                <exclude reference="7IT-lU-ZX0"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="PUS-nO-hZ8"/>
-                                <exclude reference="y7Y-5F-V70"/>
+                                <exclude reference="9z7-TS-Iof"/>
                                 <exclude reference="Iq6-rl-ChZ"/>
                                 <exclude reference="Lso-QX-bdn"/>
+                                <exclude reference="jEq-xN-m75"/>
+                                <exclude reference="kyi-Gm-lja"/>
+                                <exclude reference="ngc-oH-90g"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
+                                <include reference="VIv-DH-3hR"/>
                                 <include reference="qvq-SK-jTK"/>
-                                <include reference="7IT-lU-ZX0"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="PUS-nO-hZ8"/>
-                                <include reference="y7Y-5F-V70"/>
+                                <include reference="9z7-TS-Iof"/>
                                 <include reference="Iq6-rl-ChZ"/>
                                 <include reference="Lso-QX-bdn"/>
+                                <include reference="jEq-xN-m75"/>
+                                <include reference="kyi-Gm-lja"/>
+                                <include reference="ngc-oH-90g"/>
                             </mask>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="M1S-Nj-nsO"/>
                     <connections>
                         <outlet property="pushButton" destination="qvq-SK-jTK" id="hjc-5T-zlv"/>
+                        <outlet property="tableView" destination="VIv-DH-3hR" id="TS9-l1-EJH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1083" y="483.75"/>
         </scene>
-        <!--View Controller-->
+        <!--One View Controller-->
         <scene sceneID="cBP-8L-WjR">
             <objects>
-                <viewController id="qdl-dl-QSo" sceneMemberID="viewController">
+                <viewController id="qdl-dl-QSo" customClass="OneViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="upC-sa-K0O"/>
                         <viewControllerLayoutGuide type="bottom" id="WBg-G0-itj"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="tsB-ox-8DJ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" red="0.28235294119999998" green="0.53725490200000003" blue="0.78823529410000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -137,7 +128,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MNj-wL-LHb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1923" y="483.75"/>
+            <point key="canvasLocation" x="2005.5" y="483.75"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="x1h-Ng-l7p">
