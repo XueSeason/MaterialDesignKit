@@ -11,4 +11,6 @@
 IB_DESIGNABLE
 @interface MDSwitch : UIView
 @property (strong, nonatomic) IBInspectable UIColor *slideColor;
+@property (strong, nonatomic) IBInspectable UIColor *fillColor;
+@property (assign, nonatomic) IBInspectable BOOL switchState;
 @end
