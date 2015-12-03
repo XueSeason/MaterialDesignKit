@@ -19,7 +19,9 @@ static CGFloat const trackRadius  = 7;
 @property (strong, nonatomic) CAShapeLayer *trackLayer;
 @property (strong, nonatomic) CAShapeLayer *fillLayer;
 
-//@property (strong, nonatomic, readonly) UIBezierPath *fillPath;
+@property (strong, nonatomic) UIBezierPath *beginPath;
+@property (strong, nonatomic) UIBezierPath *endPath;
+
 @end
 
 @implementation MDSwitch
@@ -54,12 +56,11 @@ static CGFloat const trackRadius  = 7;
 - (void)drawRect:(CGRect)rect {
     if (self.switchState) {
         self.slideLayer.frame = CGRectMake(switchWidth - 2 * slideRadius, 0, 2 * slideRadius, 2 * slideRadius);
-        self.fillLayer.path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, switchWidth - 2 * slideRadius, 2 * trackRadius) cornerRadius:trackRadius].CGPath;
+        self.fillLayer.path = self.endPath.CGPath;
     } else {
         self.slideLayer.frame = CGRectMake(0, 0, 2 * slideRadius, 2 * slideRadius);
-        self.fillLayer.path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, 0, 2 * trackRadius) cornerRadius:trackRadius].CGPath;
+        self.fillLayer.path = self.beginPath.CGPath;
     }
-//    self.fillLayer.path = self.fillPath.CGPath;
 }
 
 #pragma mark - events response
@@ -83,12 +84,6 @@ static CGFloat const trackRadius  = 7;
     return _slideLayer;
 }
 
-- (void)setSlideColor:(UIColor *)slideColor {
-    _slideColor = slideColor;
-    _slideLayer.backgroundColor = _slideColor.CGColor;
-    [self setNeedsDisplay];
-}
-
 - (CAShapeLayer *)trackLayer {
     if (!_trackLayer) {
         _trackLayer = [CAShapeLayer layer];
@@ -106,14 +101,32 @@ static CGFloat const trackRadius  = 7;
         _fillLayer = [CAShapeLayer layer];
         _fillLayer.lineWidth = 0.5;
         _fillLayer.fillColor = [UIColor colorWithWhite:1.0 alpha:0.8].CGColor;
+        _fillLayer.frame = self.trackLayer.bounds;
+        _fillLayer.cornerRadius = trackRadius;
+        _fillLayer.masksToBounds = YES;
     }
     return _fillLayer;
 }
 
-//- (UIBezierPath *)fillPath {
-//    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, CGRectGetMinX(self.slideLayer.frame) + 2 * trackRadius - slideRadius, 2 * trackRadius) cornerRadius:trackRadius];
-//    return path;
-//}
+- (UIBezierPath *)beginPath {
+    if (!_beginPath) {
+        _beginPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, 0, 2 * trackRadius) cornerRadius:trackRadius];
+    }
+    return _beginPath;
+}
+
+- (UIBezierPath *)endPath {
+    if (!_endPath) {
+        _endPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, switchWidth - 2 * slideRadius, 2 * trackRadius) cornerRadius:trackRadius];
+    }
+    return _endPath;
+}
+
+- (void)setSlideColor:(UIColor *)slideColor {
+    _slideColor = slideColor;
+    _slideLayer.backgroundColor = _slideColor.CGColor;
+    [self setNeedsDisplay];
+}
 
 - (void)setFillColor:(UIColor *)fillColor {
     _fillColor = fillColor;
@@ -124,6 +137,31 @@ static CGFloat const trackRadius  = 7;
 - (void)setSwitchState:(BOOL)switchState {
     _switchState = switchState;
     [self setNeedsDisplay];
+    
+    CFTimeInterval time = 0.2;
+    CABasicAnimation *fillAnimation = [CABasicAnimation animationWithKeyPath:@"path"];
+    fillAnimation.duration = time;
+    if (_switchState) {
+        fillAnimation.fromValue = (__bridge id)self.beginPath.CGPath;
+        fillAnimation.toValue = (__bridge id)self.endPath.CGPath;
+    } else {
+        fillAnimation.fromValue = (__bridge id)self.endPath.CGPath;
+        fillAnimation.toValue = (__bridge id)self.beginPath.CGPath;
+    }
+    fillAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+    [self.fillLayer addAnimation:fillAnimation forKey:@"fill"];
+    
+    CABasicAnimation *moveAnimation = [CABasicAnimation animationWithKeyPath:@"position.x"];
+    moveAnimation.duration = time;
+    if (_switchState) {
+        moveAnimation.fromValue = @(slideRadius);
+        moveAnimation.toValue = @(switchWidth - slideRadius);
+    } else {
+        moveAnimation.fromValue = @(switchWidth - slideRadius);
+        moveAnimation.toValue = @(slideRadius);
+    }
+    moveAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+    [self.slideLayer addAnimation:moveAnimation forKey:@"move"];
 }
 
 @end
